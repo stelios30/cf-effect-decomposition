@@ -1,0 +1,59 @@
+{
+    "initial": {
+        "diabetes": 0.2,
+        "heart_rate": [0.25, 0.5, 0.25],
+        "sys_bp": [0.25, 0.5, 0.25],
+        "per_oxygen": [0.2, 0.8],
+        "glucose": [0.05, 0.15, 0.6, 0.15, 0.05],
+        "glucose_diabetic": [0.01, 0.05, 0.15, 0.6, 0.19]
+    },
+    "antibiotics": {
+        "on": {
+            "heart_rate_high_to_normal": 0.9,
+            "sys_bp_high_to_normal": 0.9
+        },
+        "off": {
+            "heart_rate_normal_to_high": 0.4,
+            "sys_bp_normal_to_high": 0.4
+        }
+    },
+    "ventilation": {
+        "on": {
+            "per_oxygen_low_to_normal": 0.7
+        },
+        "off": {
+            "per_oxygen_normal_to_low": 0.5
+        }
+    },
+    "vasopressors": {
+        "on": {
+            "diabetic": {
+                "sys_bp_low_to_normal": 0.5,
+                "sys_bp_low_to_high": 0.5,
+                "sys_bp_normal_to_high": 0.9,
+                "raise_glucose": 0.6
+            },
+            "non-diabetic": {
+                "sys_bp_low_to_normal": 0.4,
+                "sys_bp_normal_to_high": 0.4
+            }
+        },
+        "off": {
+            "diabetic": {
+                "lower_sys_bp": 0.2
+            },
+            "non-diabetic": {
+                "lower_sys_bp": 0.3
+            }
+        }
+    },
+    "fluctuations": {
+        "heart_rate": 0.1,
+        "sys_bp": 0.1,
+        "per_oxygen": 0.1,
+        "glucose": {
+            "diabetic": 0.3,
+            "non-diabetic": 0.1
+        }
+    }
+}

@@ -1,0 +1,7 @@
+__pycache__
+mdp_ai.pkl
+mdp_original.pkl
+notebooks/playground.ipynb
+results/debug
+.vscode/*
+.env

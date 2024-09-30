@@ -1,0 +1,85 @@
+- model: ifa
+  extends: [base-rl]
+  operations:
+      train:
+          description: Train an instruction-following agent
+          main: ced.scripts.grid_experiment train-ifa
+          flags-dest: args
+          flags-import: no
+          flags:
+              artifacts-dir: ./dist
+              seed: 55969672
+              mode: "a1"
+              instruction: null
+              discount: 0.99
+              num-step-per-collect: 200
+              num-collect-per-epoch: 5
+              num-epochs: 2000
+              lr: 1e-4
+              hidden-dim: 128
+              hidden-depth: 3
+              estimation-step: 1
+              target-update-freq: 1000
+              polyak-tau: 1e-3
+              batch-size: 512
+              horizon: 25
+              eps-greedy: 0.5
+              eps-greedy-min: 0.1
+              eps-greedy-decay: 0.9
+              eps-greedy-decay-epochs: 25
+              replay-buffer-size: 50000
+              num-train-envs: 8
+              weighted-instruction-sampling: true
+              device: cuda
+              eval-on-instructions: null
+      tune:
+          description: Tunes an instruction-following agent
+          main: ced.scripts.grid_experiment train-ifa
+          flags-dest: args
+          flags-import: no
+          flags:
+              artifacts-dir: ./dist
+              seed: 55969672
+              mode: "a1"
+              instruction: null
+              discount: [0.99, 0.9, 0.8]
+              num-step-per-collect: 200
+              num-collect-per-epoch: 5
+              num-epochs: 50
+              lr: [1e-5, 5e-5, 1e-4, 5e-4, 1e-3]
+              hidden-dim: [64, 128, 256]
+              hidden-depth: [2, 3]
+              estimation-step: [1, 3, 5, 10, 15]
+              target-update-freq: [500, 1000, 1500]
+              polyak-tau: 1e-3
+              batch-size: [256, 512, 1024, 2048]
+              horizon: 25
+              eps-greedy: 0.5
+              eps-greedy-min: 0.1
+              eps-greedy-decay: 0.9
+              eps-greedy-decay-epochs: 25
+              replay-buffer-size: 50000
+              num-train-envs: 2
+              weighted-instruction-sampling: true
+              device: cuda
+              eval-on-instructions: null
+- model: base-rl
+  operations:
+      train:
+          description: Base training configuration for reinforcement learning agents using the Tianshou framework
+          sourcecode:
+              - '*.py'
+          flags-import: no
+          env:
+              JUPYTER_PLATFORM_DIRS: 1
+          output-scalars:
+              - '(\key)=(\value)'
+              - step: 'EPOCH=(\step)'
+      tune:
+          description: Base tuning configuration for reinforcement learning agents using the Tianshou framework
+          sourcecode:
+              - '*.py'
+          flags-import: no
+          output-scalars:
+              - '(\key)=(\value)'
+              - step: 'EPOCH=(\step)'
